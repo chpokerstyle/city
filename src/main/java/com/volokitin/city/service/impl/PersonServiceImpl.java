@@ -8,7 +8,12 @@ import com.volokitin.city.service.inter.PersonService;
 import org.springframework.stereotype.Service;
 import com.volokitin.city.rest.models.CreatePersonRequest;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.temporal.TemporalAmount;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -31,10 +36,11 @@ public class PersonServiceImpl implements PersonService {
                 .birthday(createPersonRequest.birthday())
                 .dateCreatePassport(LocalDate.now())
                 .build();
+
         Person personEntity = Person.builder()
                 .firstName(createPersonRequest.firstName())
                 .lastName(createPersonRequest.lastName())
-                .age( createPersonRequest.age())
+                .age((short) (LocalDate.now().getYear() - createPersonRequest.birthday().getYear()))
                 .passport(passportEntity)
                 .build();
         personRepo.save(personEntity);
