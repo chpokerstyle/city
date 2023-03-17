@@ -19,12 +19,12 @@ public class Person {
 
     private char age;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public Passport passport;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public Set<Home> homeSet;
 
-    @OneToMany()
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public Set<Car> carSet;
 }

@@ -24,7 +24,7 @@ public class Passport {
 
     private String registrationAddress;
 
-    @OneToOne
+    @OneToOne(mappedBy = "person")
     public Person person;
 
 }

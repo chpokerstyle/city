@@ -16,6 +16,6 @@ public class Home {
 
     private String address;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "homeSet")
     public Set<Person> personSet;
 }
