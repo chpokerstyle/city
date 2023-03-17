@@ -1,13 +1,17 @@
 package com.volokitin.city.data.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
 
 @Data
+@Builder
 @Entity
 @Table
+@AllArgsConstructor
 public class Passport {
 
     @Id
@@ -24,7 +28,7 @@ public class Passport {
 
     private String registrationAddress;
 
-    @OneToOne(mappedBy = "person")
+    @OneToOne(mappedBy = "passport")
     public Person person;
 
 }

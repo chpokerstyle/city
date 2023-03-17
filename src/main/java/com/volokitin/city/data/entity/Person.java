@@ -1,11 +1,12 @@
 package com.volokitin.city.data.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.util.Set;
 
-@Data
+@Builder(access = AccessLevel.PUBLIC)
+@AllArgsConstructor
 @Entity
 @Table
 public class Person {
@@ -17,7 +18,7 @@ public class Person {
 
     private String lastName;
 
-    private char age;
+    private short age;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public Passport passport;
@@ -27,4 +28,5 @@ public class Person {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public Set<Car> carSet;
+
 }
