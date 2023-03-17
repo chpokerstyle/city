@@ -1,24 +1,25 @@
 package com.volokitin.city.rest.models;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.PastOrPresent;
 import org.springframework.lang.Nullable;
 
 import java.time.LocalDate;
 
 public record CreatePersonRequest(
 
-        @NotBlank(message = "Name is mandatory")
+        @NotBlank(message = "First name is mandatory")
         String firstName,
-        @NotBlank(message = "Name is mandatory")
+        @NotBlank(message = "Last name is mandatory")
         String lastName,
-        @NotBlank(message = "Name is mandatory")
-        short age,
         int series,
         int number,
-        @NotBlank(message = "Name is mandatory")
+        @Past(message = "birthday is mandatory")
         LocalDate birthday,
+        @PastOrPresent
         LocalDate dateCreatePassport,
-        @Nullable
         String registrationAddress
 ) {
 }

@@ -28,6 +28,6 @@ public class PersonController {
 
     @GetMapping("/format")
     public CreatePersonRequest getFormat(){
-        return new CreatePersonRequest("","", (short) 1,1,1, LocalDate.now(), LocalDate.now(), "");
+        return new CreatePersonRequest("","",1,1, LocalDate.now(), LocalDate.now(), "");
     }
 }
