@@ -4,7 +4,8 @@ import com.volokitin.city.data.entity.Car;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Set;
 
 public interface CarRepo extends JpaRepository<Car, Long> {
-    List<Car> findByPersonId(Long id);
+    Set<Car> findByPersonId(Long id);
 }

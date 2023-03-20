@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class PersonServiceImpl implements PersonService {
@@ -58,9 +59,14 @@ public class PersonServiceImpl implements PersonService {
     @Transactional
     @Override
     public void deletePersonById(Long id) {
-        List<Car> carList = carRepo.findByPersonId(id);
+        List<Car> carList = carRepo.findByPersonId(id).stream().toList();
         carRepo.deleteAll(carList);
         personRepo.deleteById(id);
+    }
+
+    @Override
+    public Set<Car> getCarsOfPerson(Long personId){
+        return carRepo.findByPersonId(personId);
     }
 
     @Override
