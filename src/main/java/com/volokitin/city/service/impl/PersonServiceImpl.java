@@ -1,12 +1,15 @@
 package com.volokitin.city.service.impl;
 
 import com.volokitin.city.data.entity.Car;
+import com.volokitin.city.data.entity.Home;
 import com.volokitin.city.data.entity.Passport;
 import com.volokitin.city.data.entity.Person;
 import com.volokitin.city.data.repo.CarRepo;
+import com.volokitin.city.data.repo.HomeRepo;
 import com.volokitin.city.data.repo.PassportRepo;
 import com.volokitin.city.data.repo.PersonRepo;
 import com.volokitin.city.rest.models.CreatePersonRequest;
+import com.volokitin.city.rest.models.PersonDto;
 import com.volokitin.city.rest.models.UpdatePersonRequest;
 import com.volokitin.city.service.inter.PersonService;
 import org.springframework.stereotype.Service;
@@ -23,11 +26,13 @@ public class PersonServiceImpl implements PersonService {
     private final PersonRepo personRepo;
     private final PassportRepo passportRepo;
     private final CarRepo carRepo;
+    private final HomeRepo homeRepo;
 
-    public PersonServiceImpl(PersonRepo personRepo, PassportRepo passportRepo, CarRepo carRepo) {
+    public PersonServiceImpl(PersonRepo personRepo, PassportRepo passportRepo, CarRepo carRepo, HomeRepo homeRepo) {
         this.personRepo = personRepo;
         this.passportRepo = passportRepo;
         this.carRepo = carRepo;
+        this.homeRepo = homeRepo;
     }
 
     @Override
@@ -77,5 +82,23 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public List<Person> getAllPerson() {
         return personRepo.findAll();
+    }
+
+    @Override
+    @Transactional
+    public boolean addPersonToHome(Long personId, Long homeId){
+        Person person = personRepo.getReferenceById(personId);
+        Home home = homeRepo.getReferenceById(homeId);
+        if(person==null||home==null) return false;
+        person.homeList.add(home);
+        home.personList.add(person);
+        personRepo.save(person);
+        homeRepo.save(home);
+        return true;
+    }
+
+    @Override
+    public List<Person> getOwnersFromStreet(String street) {
+        return homeRepo.getOwnersFromStreet(street);
     }
 }

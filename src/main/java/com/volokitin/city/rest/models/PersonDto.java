@@ -21,9 +21,12 @@ public class PersonDto {
 
     private short age;
 
+    @JsonIgnore
     public Passport passport;
 
+//    @JsonIgnore
     public Set<Home> homeSet;
 
+    @JsonIgnore
     public Set<Car> carSet;
 }

@@ -4,6 +4,7 @@ import com.volokitin.city.data.entity.Car;
 import com.volokitin.city.data.entity.Person;
 import com.volokitin.city.rest.models.CarDto;
 import com.volokitin.city.rest.models.CreatePersonRequest;
+import com.volokitin.city.rest.models.PersonDto;
 import com.volokitin.city.service.inter.PersonService;
 import com.volokitin.city.utils.MapperTransform;
 import jakarta.validation.Valid;
@@ -51,6 +52,14 @@ public class PersonController {
         return new ResponseEntity<>(carsSerOfPerson, HttpStatus.OK);
     }
 
+    @GetMapping("/all")
+    ResponseEntity <List<PersonDto>> getAllPerson(){
+        List<PersonDto> personDtoList = personService.getAllPerson()
+                .stream()
+                .map(mapper::personToDto)
+                .toList();
+        return new ResponseEntity<>(personDtoList, HttpStatus.OK);
+    }
 
     @GetMapping("/format")
     public CreatePersonRequest getFormat() {

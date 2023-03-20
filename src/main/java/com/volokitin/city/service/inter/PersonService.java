@@ -3,7 +3,9 @@ package com.volokitin.city.service.inter;
 import com.volokitin.city.data.entity.Car;
 import com.volokitin.city.data.entity.Person;
 import com.volokitin.city.rest.models.CreatePersonRequest;
+import com.volokitin.city.rest.models.PersonDto;
 import com.volokitin.city.rest.models.UpdatePersonRequest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,4 +22,9 @@ public interface PersonService {
 
     Optional<Person> getPersonById(Long id);
     List<Person> getAllPerson();
+
+    @Transactional
+    boolean addPersonToHome(Long personId, Long homeId);
+
+    List<Person> getOwnersFromStreet(String street);
 }
