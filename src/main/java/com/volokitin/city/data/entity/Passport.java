@@ -1,13 +1,17 @@
 package com.volokitin.city.data.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Builder
 @Entity
-@Table
+@Table(name = "passports")
 public class Passport {
 
     @Id
@@ -24,7 +28,7 @@ public class Passport {
 
     private String registrationAddress;
 
-    @OneToOne(mappedBy = "person")
+    @OneToOne(mappedBy = "passport", fetch = FetchType.LAZY)
     public Person person;
 
 }

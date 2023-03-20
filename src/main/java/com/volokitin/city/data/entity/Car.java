@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table
+@Table(name = "cars")
 public class Car {
 
     @Id
@@ -14,6 +14,5 @@ public class Car {
     private String brand;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "person_id")
     public Person person;
 }

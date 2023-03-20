@@ -1,13 +1,23 @@
 package com.volokitin.city.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-@Data
+@Builder(access = AccessLevel.PUBLIC)
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 @Entity
-@Table
+@Table(name = "persons")
 public class Person {
 
     @Id @GeneratedValue()
@@ -17,14 +27,22 @@ public class Person {
 
     private String lastName;
 
-    private char age;
+    private short age;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     public Passport passport;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    public Set<Home> homeSet;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinTable(
+            schema = "public",
+            name = "persons_homes",
+            joinColumns = @JoinColumn(name = "persons_id"),
+            inverseJoinColumns = {@JoinColumn(name = "homes_id")})
+    public Set<Home> homes = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "person")
+    @JsonIgnore
     public Set<Car> carSet;
+
 }
