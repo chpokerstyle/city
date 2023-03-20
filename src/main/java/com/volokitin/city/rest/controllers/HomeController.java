@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,13 +26,25 @@ public class HomeController {
     }
 
     @PostMapping("/create")
-    public void createHome(@Valid HomeDto home) {
-        homeService.createHome(home);
+    public ResponseEntity<Void> createHome(@Valid HomeDto home) {
+        try {
+            homeService.createHome(home);
+        }catch (Exception e){
+            e.getMessage();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete/id")
-    public void deleteHomeById(@PathVariable Long id) {
-        homeService.deleteHomeById(id);
+    public ResponseEntity<Void> deleteHomeById(@PathVariable Long id) {
+        try {
+            homeService.deleteHomeById(id);
+        }catch (Exception e){
+            e.getMessage();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("add-to-home/{personId}/{homeId}")
@@ -43,7 +56,13 @@ public class HomeController {
 
     @GetMapping("/owners/")
     public ResponseEntity<List<Person>> getAllOwnersFromStreet(@RequestBody String street) {
-        List<Person> owners = personService.getOwnersFromStreet(street);
+        List<Person> owners = new ArrayList<>();
+                try{
+                    owners = personService.getOwnersFromStreet(street);
+                }catch (Exception e){
+                    e.getMessage();
+                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
         return new ResponseEntity<>(owners, HttpStatus.OK);
     }
 }

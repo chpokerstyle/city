@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface HomeRepo  extends JpaRepository<Home, Long> {
 
-    @Query("SELECT h.personList FROM Home h WHERE h.street = :street")
+    @Query("SELECT h.persons FROM Home h WHERE h.street = :street")
     List<Person> getOwnersFromStreet(@Param("street") String street);
 }

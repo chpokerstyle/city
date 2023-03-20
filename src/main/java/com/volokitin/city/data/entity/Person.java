@@ -17,7 +17,7 @@ import java.util.Set;
 @ToString
 @EqualsAndHashCode
 @Entity
-@Table
+@Table(name = "persons")
 public class Person {
 
     @Id @GeneratedValue()
@@ -36,12 +36,12 @@ public class Person {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
             schema = "public",
-            name = "person_home_list",
-            joinColumns = @JoinColumn(name = "person_list_id"),
-            inverseJoinColumns = {@JoinColumn(name = "home_list_id")})
-    public Set<Home> homeList = new HashSet<>();
+            name = "persons_homes",
+            joinColumns = @JoinColumn(name = "persons_id"),
+            inverseJoinColumns = {@JoinColumn(name = "homes_id")})
+    public Set<Home> homes = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "person")
     @JsonIgnore
     public Set<Car> carSet;
 

@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Setter
 @Builder
 @Entity
-@Table
+@Table(name = "passports")
 public class Passport {
 
     @Id

@@ -1,6 +1,5 @@
 package com.volokitin.city.rest.controllers;
 
-import com.volokitin.city.data.entity.Car;
 import com.volokitin.city.data.entity.Person;
 import com.volokitin.city.rest.models.CarDto;
 import com.volokitin.city.rest.models.CreatePersonRequest;
@@ -13,7 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -32,37 +32,47 @@ public class PersonController {
     }
 
     @PostMapping("/create")
-    public Person createPerson(@Valid @RequestBody CreatePersonRequest createPersonRequest) {
+    public ResponseEntity<Person> createPerson(@Valid @RequestBody CreatePersonRequest createPersonRequest) {
         Person request = personService.createPerson(createPersonRequest);
-        return request;
+        if (request == null) return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<>(request, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deletePerson(@PathVariable Long id) {
+    public ResponseEntity<Void> deletePerson(@PathVariable Long id) {
         personService.deletePersonById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
     @GetMapping("/{personId}/cars")
     ResponseEntity<Set<CarDto>> getCarOfPersonById(@PathVariable Long personId) {
-        Set<CarDto> carsSerOfPerson = personService.getCarsOfPerson(personId)
-                .stream()
-                .map(mapper::carToDto)
-                .collect(Collectors.toSet());
+        Set<CarDto> carsSerOfPerson = new HashSet<>();
+        try {
+            carsSerOfPerson = personService.getCarsOfPerson(personId)
+                    .stream()
+                    .map(mapper::carToDto)
+                    .collect(Collectors.toSet());
+        } catch (Exception e) {
+            e.getMessage();
+            new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         return new ResponseEntity<>(carsSerOfPerson, HttpStatus.OK);
     }
 
     @GetMapping("/all")
-    ResponseEntity <List<PersonDto>> getAllPerson(){
-        List<PersonDto> personDtoList = personService.getAllPerson()
-                .stream()
-                .map(mapper::personToDto)
-                .toList();
+    ResponseEntity<List<PersonDto>> getAllPerson() {
+        List<PersonDto> personDtoList = new ArrayList<>();
+        try {
+            personDtoList = personService.getAllPerson()
+                    .stream()
+                    .map(mapper::personToDto)
+                    .toList();
+        } catch (Exception e) {
+            e.getMessage();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         return new ResponseEntity<>(personDtoList, HttpStatus.OK);
     }
 
-    @GetMapping("/format")
-    public CreatePersonRequest getFormat() {
-        return new CreatePersonRequest("", "", 1, 1, LocalDate.now(), LocalDate.now(), "");
-    }
 }

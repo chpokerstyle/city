@@ -90,8 +90,8 @@ public class PersonServiceImpl implements PersonService {
         Person person = personRepo.getReferenceById(personId);
         Home home = homeRepo.getReferenceById(homeId);
         if(person==null||home==null) return false;
-        person.homeList.add(home);
-        home.personList.add(person);
+        person.homes.add(home);
+        home.persons.add(person);
         personRepo.save(person);
         homeRepo.save(home);
         return true;

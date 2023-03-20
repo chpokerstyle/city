@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Data
 @Entity
-@Table
+@Table(name = "homes")
 public class Home {
 
     @Id
@@ -19,6 +19,6 @@ public class Home {
     private String street;
     private int house;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, mappedBy = "homeList")
-    public Set<Person> personList = new HashSet<>();
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, mappedBy = "homes")
+    public Set<Person> persons = new HashSet<>();
 }
