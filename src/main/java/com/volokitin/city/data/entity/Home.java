@@ -14,7 +14,8 @@ public class Home {
     @GeneratedValue()
     private Long id;
 
-    private String address;
+    private String street;
+    private int house;
 
     @ManyToMany(mappedBy = "homeSet")
     public Set<Person> personSet;
