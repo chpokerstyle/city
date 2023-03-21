@@ -6,6 +6,8 @@ import com.volokitin.city.rest.models.HomeDto;
 public interface HomeService {
 
     Home createHome(HomeDto home);
+
     Home updateHome(Home home);
+
     void deleteHomeById(Long id);
 }

@@ -4,10 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.volokitin.city.data.entity.Car;
 import com.volokitin.city.data.entity.Home;
 import com.volokitin.city.data.entity.Passport;
-import jakarta.persistence.*;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.util.Set;
 
 @Data
@@ -24,7 +22,7 @@ public class PersonDto {
     @JsonIgnore
     public Passport passport;
 
-//    @JsonIgnore
+    //    @JsonIgnore
     public Set<Home> homeSet;
 
     @JsonIgnore

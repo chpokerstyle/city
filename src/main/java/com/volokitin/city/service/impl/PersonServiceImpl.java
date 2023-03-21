@@ -69,7 +69,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public Set<Car> getCarsOfPerson(Long personId){
+    public Set<Car> getCarsOfPerson(Long personId) {
         return carRepo.findByPersonId(personId);
     }
 
@@ -85,10 +85,10 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     @Transactional
-    public boolean addPersonToHome(Long personId, Long homeId){
+    public boolean addPersonToHome(Long personId, Long homeId) {
         Person person = personRepo.getReferenceById(personId);
         Home home = homeRepo.getReferenceById(homeId);
-        if(person==null||home==null) return false;
+        if (person == null || home == null) return false;
         person.homes.add(home);
         home.persons.add(person);
         personRepo.save(person);

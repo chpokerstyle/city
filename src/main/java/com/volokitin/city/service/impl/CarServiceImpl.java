@@ -7,7 +7,6 @@ import com.volokitin.city.rest.models.CarDto;
 import com.volokitin.city.service.inter.CarService;
 import com.volokitin.city.utils.MapperTransform;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service

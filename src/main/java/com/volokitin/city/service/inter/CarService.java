@@ -8,5 +8,6 @@ public interface CarService {
     Car createCar(CarDto carDto);
 
     void addPersonToCar(Long carId, Long personId);
+
     void deleteCarById(Long id);
 }

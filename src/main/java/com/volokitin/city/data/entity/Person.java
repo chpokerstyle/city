@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Builder(access = AccessLevel.PUBLIC)
@@ -20,7 +18,8 @@ import java.util.Set;
 @Table(name = "persons")
 public class Person {
 
-    @Id @GeneratedValue()
+    @Id
+    @GeneratedValue()
     private Long id;
 
     private String firstName;

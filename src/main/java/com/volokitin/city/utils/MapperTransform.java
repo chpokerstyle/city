@@ -14,6 +14,7 @@ public interface MapperTransform {
     MapperTransform INSTANCE = Mappers.getMapper(MapperTransform.class);
 
     CarDto carToDto(Car car);
+
     Car carToEntity(CarDto carDto);
 
     Home homeToEntity(HomeDto homeDto);

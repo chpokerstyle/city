@@ -14,19 +14,19 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler
-    public ResponseEntity<ErrorInfo> catchCarNotFoundException(CarNotFoundException e){
+    public ResponseEntity<ErrorInfo> catchCarNotFoundException(CarNotFoundException e) {
         log.error(e.getMessage());
         return new ResponseEntity<>(new ErrorInfo(HttpStatus.NOT_FOUND.value(), " Автомобиль не найден "), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler
-    public ResponseEntity<ErrorInfo> catchHomeNotFoundException(HomeNotFoundException e){
+    public ResponseEntity<ErrorInfo> catchHomeNotFoundException(HomeNotFoundException e) {
         log.error(e.getMessage());
         return new ResponseEntity<>(new ErrorInfo(HttpStatus.NOT_FOUND.value(), " Адрес не найден "), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler
-    public ResponseEntity<ErrorInfo> catchPersonNotFoundException(PersonNotFoundException e){
+    public ResponseEntity<ErrorInfo> catchPersonNotFoundException(PersonNotFoundException e) {
         log.error(e.getMessage());
         return new ResponseEntity<>(new ErrorInfo(HttpStatus.NOT_FOUND.value(), " Пользователь не найден "), HttpStatus.NOT_FOUND);
     }

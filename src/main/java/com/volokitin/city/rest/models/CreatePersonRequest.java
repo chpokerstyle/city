@@ -1,10 +1,8 @@
 package com.volokitin.city.rest.models;
 
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.PastOrPresent;
-import org.springframework.lang.Nullable;
 
 import java.time.LocalDate;
 
