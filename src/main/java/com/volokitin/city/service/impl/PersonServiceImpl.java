@@ -9,7 +9,6 @@ import com.volokitin.city.data.repo.HomeRepo;
 import com.volokitin.city.data.repo.PassportRepo;
 import com.volokitin.city.data.repo.PersonRepo;
 import com.volokitin.city.rest.models.CreatePersonRequest;
-import com.volokitin.city.rest.models.PersonDto;
 import com.volokitin.city.rest.models.UpdatePersonRequest;
 import com.volokitin.city.service.inter.PersonService;
 import org.springframework.stereotype.Service;
