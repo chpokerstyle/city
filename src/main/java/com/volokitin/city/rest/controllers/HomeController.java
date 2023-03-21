@@ -26,7 +26,7 @@ public class HomeController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Void> createHome(@Valid HomeDto home) {
+    public ResponseEntity<Void> createHome(@Valid @RequestBody HomeDto home) {
         try {
             homeService.createHome(home);
         }catch (Exception e){
